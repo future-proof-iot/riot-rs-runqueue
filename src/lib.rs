@@ -1,7 +1,15 @@
 #![cfg_attr(not(test), no_std)]
 
+/* use Rust version */
+#[cfg(not(feature = "hacspec"))]
 mod runqueue;
-pub use runqueue::{RunQueue, RunqueueId, ThreadId};
+
+/* use hacspec version */
+#[cfg(feature = "hacspec")]
+mod hacspec;
+
+#[cfg(feature = "hacspec")]
+pub use hacspec::{RunQueue, RunqueueId, ThreadId};
 
 #[cfg(test)]
 mod tests {
@@ -36,19 +44,19 @@ mod tests {
     }
 
     #[test]
-    fn test_rq_all32() {
-        let mut runqueue: RunQueue<8, 32> = RunQueue::new();
+    fn test_rq_all20() {
+        let mut runqueue: RunQueue<20, 30> = RunQueue::new();
 
-        for i in 0..=31 {
+        for i in 0..30 {
             runqueue.add(i, 0);
         }
 
-        for i in 0..=31 {
+        for i in 0..30 {
             assert_eq!(runqueue.get_next(), Some(i));
             runqueue.advance(0);
         }
 
-        for i in 0..=31 {
+        for i in 0..30 {
             assert_eq!(runqueue.get_next(), Some(i));
             runqueue.advance(0);
         }
