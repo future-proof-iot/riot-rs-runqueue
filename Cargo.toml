@@ -7,10 +7,9 @@ edition = "2018"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-hacspec-riot-runqueue = { optional = true, git="https://github.com/kaspar030/hacspec", branch="no_std_rebased" }
+hacspec-riot-runqueue = { optional = true, git="https://github.com/kaspar030/hacspec", branch="no_std_rebased", default-features = false }
 hacspec-lib = { optional = true, git="https://github.com/kaspar030/hacspec", branch="no_std_rebased", default-features = false }
 static-alloc = { optional=true, version = "0.2.2" }
 
 [features]
 hacspec = ["hacspec-lib/alloc", "hacspec-riot-runqueue", "static-alloc"]
-debug = []
